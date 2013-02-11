@@ -1,0 +1,29 @@
+
+.settings{
+    margin-top:30px;
+}
+
+
+.tollTable{
+    margin: 0px 0px 0px 0px;
+
+}
+
+.tollTableRow{
+    height:40px;
+
+}
+
+.isNumericFormat{
+
+}
+
+.noteTableRow{
+    height:40px;
+}
+
+.content-scroll {
+    height:100px;
+    overflow: auto; 
+    -webkit-overflow-scrolling: touch; 
+}

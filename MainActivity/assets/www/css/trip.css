@@ -1,0 +1,12 @@
+
+.searchBarUL{
+    width:320px;
+    height:80px;
+    text-transform:capitalize;
+}
+
+.tripLogButton{
+    margin-top:1px;
+    float:left;
+    height:23px;
+}

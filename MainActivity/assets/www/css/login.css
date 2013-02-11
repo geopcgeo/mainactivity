@@ -1,0 +1,18 @@
+
+.navBar{
+    width:320px;
+    height:40px;
+    top:0px;
+    position:absolute;
+}
+
+.loginTxt{
+    width:240px;
+    height:40px;
+
+}
+
+.loginLbl{
+    width:80px;
+    height:60px;
+}

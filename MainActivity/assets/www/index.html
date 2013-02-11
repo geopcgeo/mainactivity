@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html>
+<!--
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+# http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#  KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name = "format-detection" content = "telephone=no"/>
+     
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <link rel="stylesheet" type="text/css" href="css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="css/home.css"/>
+        <link rel="stylesheet" type="text/css" href="css/trip.css"/>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.1.1.css"/>
+        <link rel="stylesheet" type="text/css" href="css/themes.css"/>
+        <script src="js/jquery-1.8.2.js"></script>
+        <script src="js/jquery.mobile-1.1.1.js"></script>
+        <script type="text/javascript" src="cordova-2.0.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/database.js"></script>
+        <script type="text/javascript" src="js/webservices.js"></script>
+        <script type="text/javascript" src="js/locationServices.js"></script>
+        <script type="text/javascript" src="js/cusScripts.js"></script>
+        <script type="text/javascript" src="js/Model.js"></script>
+        <script type="text/javascript" src="js/sync.js"></script>
+        <script type="text/javascript" src="js/plugins/LocalNotification.js"></script>
+        <script type="text/javascript" src="js/addClient.js"></script>
+        <script type="text/javascript" src="BackPlugin.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </head>
+    <body onload="bodyLoad();" onunload="onUnload();">
+        
+        <!--#######################################LOGIN PAGE########################################-->
+        
+        <!----Login Page---------->
+        <div id="loginPage" data-role="page" class="pages">
+            <!----Header---------->
+            <div data-role="header" align="center"  style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <div id="customNavBarID" class="customNavBar">
+                <span style="font-size:13px">Welcome to MECARS</span> <br/> <span style="font-size:11px">Please Enter first time login information</span>
+                </div>
+            </div>
+            <!--!Header----------->
+           
+            <!----Content---------->
+            <div data-role="content" >
+                <!--Login Screen -->
+                <div id="loginWindowID" class="window" align="center">
+                    <img src="res/login/MECARS-Logo_600.png" style="margin-top:-10px; height:140px; width:80%"/>
+                    <div id="loginID" style="margin-top:2px" align="center">
+                        <div id="usernameID">
+                            <input type="text" class="loginTxt" name="username" id="usrID" placeholder = "Username" />
+                        </div>
+                        <div id="passwordID" >
+                            <input type="password" class="loginTxt" name="password" id="pwdID" placeholder ="Password"  />				                        </div>
+                        <div id="buttonID" >
+                            <a id="loginButtonID" href="javascript:login(document.getElementById('usrID').value,document.getElementById('pwdID').value,deviceData)" data-role="button" data-theme="b" class="loginTxt" style="text-transform:capitalize">Login</a>
+                        </div>
+                    </div>
+                </div>
+                <!--!Login Screen-->
+             </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Login','loginPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+                <div id="footerID" class="footerLeft">
+                    <a href="javascript:help()" data-role="button" data-theme="b" style="text-transform:capitalize">Help</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!Login Page------------->
+        
+        <!--#######################################HOME PAGE########################################-->
+        
+        <!----Home Page---------->
+        <div id="homePage" data-role="page" class="pages" data-scroll="true">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:10px !important">
+                    <span style="font-size:14px">Welcome to MECARS</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" >
+                <!--Home Screen-->
+                <div id="homeWindowID" class="window" align="center" style="display:block">
+                    <img src="res/login/MECARS-Logo_600.png" style="margin-top:-10px; height:110px; width:80%"/>
+                    <div id="testLocactionID" style="font-size:13px">Test  : <span id="testLocID"></span></div>
+                    <div id="distanceID" style="font-size:13px">Current Trip : <span id="distanceTravelledID"></span>, <span id="timeTravelledID"> </span></div>
+                    <div id="homeStartCancelID" style="top:220px; float:none" align="center">
+                        <div>
+                            <div>
+                                <input type="text" class="addLocationTxt" name="addLocation" id="addLocationID" placeholder ="Enter/Search Location" style="width:200px" />
+                            </div>
+                        </div>
+                        
+                         <div id="startLocationList" data-role="collapsible" data-collapsed="false" style="text-transform:capitalize">
+                            <h3><span id="startLocationListTitle" style="font-size:12px">Choose Location</span></h3>
+                            <ul data-role="listview" id="startLocationListID" style="font-size:13px">
+                               
+                            </ul>
+                            
+                        </div>
+                        <div style="clear:both; margin-top:18px">
+                            <a href="javascript:startTrip()" id="startStopButtonID" data-role="button" data-theme="g" class="startButton"><div id="startStopId" style="margin-top:27px">Start Trip</div></a>
+                            <a href="javascript:cancelTrip()" id="cancelTripButtonID" data-role="button" data-theme="f" class="cancelButton"><div id="cancelTripId">Cancel Trip</div></a>
+                        </div>
+                    </div>
+                </div>
+                <!--!Home Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerLeft">
+                    <a id="tripLogButtonID" href="javascript:loadTripLogs()" data-role="button" data-theme="b" style="text-transform:capitalize">Trip Logs</a>
+                </div>
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Start/End Trip','homePage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+                <div id="footerID" class="footerRight">
+                    <a id="settingsButtonID" href="javascript:loadSettings()" data-role="button" data-theme="b" style="text-transform:capitalize">Settings</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!Home Page------------->
+        
+        <!--#######################################END_TRIP PAGE########################################-->
+        
+        <!----END_TRIP Page---------->
+        <div id="endTripPage" data-role="page" class="pages">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative">
+                    <span style="font-size:13px">Review Trip</span><br/><span id="reviewTripDistanceID">  </span>
+                </div>
+                <a id="backHomeButtonID" href="javascript:backUnconfirmedTripAction()" data-role="button" data-theme="b" style="margin:4px 0px 4px 5px;text-transform:capitalize">Back</a>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" >
+                <!--END_TRIP Screen-->
+                <!-- <div id="searchBarID" style=" margin-top:0px;  position:relative; z-index:100" width="100%">
+                    <ul id="searchBarULID" data-role="listview" data-filter="true">
+                       
+                    </ul>
+                </div> -->
+                
+                <!-- <div id="addedDestinationID" align="center" style=" margin-top:10px;">
+                    <b>Destination :</b>
+                    <br/>
+                    <span id="selectedDestinationID"></span>
+                    <br/>
+                    <a id="selectAnotherDestinationID" href="javascript:selectDifferentDestination()" data-role="button" data-theme="f" class="" style="text-transform:capitalize; font-size:13px">Select different business</a>
+                </div> -->
+                
+                <div id="endTripWindowID" align="center" width="100%" style="top:20px; margin-top:30px">
+                    <div id="endTripID" align="center" width="100%" class="endTrip">
+                    	<!-- <div id="addClientListEndTripID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="addClientListTitleEndTripID" style="font-size:12px">Choose..</span></h3>
+                            <ul data-role="listview" id="addClientListItemsEndTripID" style="font-size:13px">
+                                
+                            </ul>
+                        </div> -->
+                        
+                        <div>
+                            <div>
+                                <input type="text" class="addLocationTxt" name="addLocation" id="addEndLocationID" placeholder ="Enter/Search End Location" style="width:100%" />
+                            </div>
+                        </div>
+                        
+                         <div id="endLocationList" data-role="collapsible" data-collapsed="false" style="text-transform:capitalize">
+                            <h3><span id="endLocationListTitle" style="font-size:12px">Choose Location</span></h3>
+                            <ul data-role="listview" id="endLocationListID" style="font-size:13px">
+                               
+                            </ul>
+                            
+                        </div>
+                        <br/>
+                        <!-- <a align="center" id="addNewDestinationButtonID" href="javascript:addNewDestination()" data-role="button" data-theme="b" class="confirmButton"><div align="center" style="margin-top:5px;text-transform:capitalize">Add as a new destination</div></a> -->
+                        <a href="javascript:confirmTrip()" data-role="button" data-theme="g" class="confirmButton"><div align="center" style="margin-top:5px;text-transform:capitalize">Confirm</div></a>
+                        <br/>
+                        <a href="javascript:recordAsPersonalTrip()" data-role="button" data-theme="b" class="personalTripButton"><div style="font-size:13px;text-transform:capitalize">Record as a Personal Trip</div></a>
+                    </div>
+                </div>
+                <!--!END_TRIP Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerLeft">
+                    <a id="tollsButtonID" href="javascript:loadTolls()" data-role="button" data-theme="b" style="text-transform:capitalize">Tolls</a>
+                </div>
+                <div id="footerID" class="footerRight" >
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Confirm Trip','endTripPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                    <a id="notesButtonID" href="javascript:loadNotes()" data-role="button" data-theme="b" style="text-transform:capitalize">Notes</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!END_TRIP Page------------->
+        
+        <!--##################################SETTINGS PAGE#####################################-->
+        
+        <!----SETTINGS Page---------->
+        <div id="settingsPage" data-role="page" class="pages">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backHomeButtonID" href="javascript:backEndTripAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Settings</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="" height="100%">
+                <!--Settings Screen-->
+                <div id="settingsWindowID" class="window" height="100%">
+                    
+                    <div id="settingsID" class="settings">
+                        <br/>
+                        <ul data-role="listview" data-theme="d" data-divider-theme="d" class="ui-listview">
+                            <li style="text-transform:capitalize"><a href="javascript:loadSettingsHomeAddress()"> Home Address</a></li>
+                            <li style="text-transform:capitalize"><a href="javascript:loadSettingsWorkAddress()">Work Address</a></li>
+                            <li style="text-transform:capitalize"><a href="javascript:loadSettingsTripStorage()">Trip Storage Settings</a></li>
+                            <li style="text-transform:capitalize"><a href="javascript:loadSettingsTollSetup()">Prepaid Toll Pass Setup</a></li>
+                            <li style="text-transform:capitalize"><a href="javascript:loadDailyCommutes()">Daily Commutes</a></li>
+                            <br/>
+                            <li style="text-transform:capitalize"><a href="javascript:loadSettingsChangePwd()">Change Password</a></li>
+                            <li style="text-transform:capitalize"><a href="javascript:logout()">Logout</a></li>
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+                <!--!SETTINGS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','settingsPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+                <div id="footerID" class="footerLeft">
+                    <a id="changePwdButtonID" href="javascript:syncAllTripData()" data-role="button" data-theme="b" style="text-transform:capitalize">Sync</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!SETTINGS Page------------->
+
+        
+        <!--##################################CHANGE PASSWORD PAGE#####################################-->
+        
+        <!----CHANGE PASSWORD Page---------->
+        <div id="settingsChangePwdPage" data-role="page" class="pages">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backChangePwdButtonID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 3px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:13px">Change Password</span>
+                </div>
+               
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--CHANGE PASSWORD Screen-->
+                <div id="settingsChangePwdWindowID" class="window">
+                    
+                    <div id="settingsChangePwdID" class="settings">
+                        <br/>
+                        <br/>
+                        <div style="color:white;font-name:Time New Roman; font-size:14px; text-transform:lowercase; color:black"><span style="text-transform:capitalize"> Your</span> password must contain 8 or more characters with atleast one number and one special charater</div>
+                        <br/>
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Old Password
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="password" class="loginTxt" name="currentPassword" id="oldPwdID" placeholder ="Current Password"  />
+                            </div>
+                        </div>
+                        
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                New Password
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="password" class="loginTxt" name="newPassword" id="newPwdID" placeholder ="New Password"  />
+                            </div>
+                        </div>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:10px; text-transform:capitalize">
+                                Confirm Password
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="password" class="loginTxt" name="confirmPassword" id="confirmPwdID" placeholder ="Confirm Password"  />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--!CHANGE PASSWORD Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerLeft">
+                    <a id="changePwdButtonID" href="javascript:changePwd()" data-role="button" data-theme="b" style="font-size:8px; text-transform:capitalize">Confirm</a>
+                </div>
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','settingsChangePwdPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+                
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!CHANGE PASSWORD Page------------->
+        
+        <!--####################################HOME ADDRESS PAGE#####################################-->
+        
+        <!----HOME ADDRESS Page---------->
+        <div id="homeAddressPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backTollButtonID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Home Address</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--HOME ADDRESS Screen-->
+                <div id="homeAddressWindowID" class="window" align="center">
+                    
+                    <div id="homeAddressID" class="" align="center">
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Address
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="houseID" placeholder ="Address"  />
+                            </div>
+                        </div>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                City
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="cityID" placeholder ="City"  />
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <br />
+                        <div id="homeAddressStateID" style="width:100px; float:left; margin-left:10px">
+                            <div>
+                                <div style="float:left; font-size:13px; width:30px;margin-top:20px; text-transform:capitalize">
+                                    State
+                                </div>
+                                
+                                <div style="float:left; width:60px; margin-left:6px">
+                                    <input type="text" class="" name="" id="stateID" placeholder ="State"  />
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div id="homeAddressZipID" align="center" style="width:120px; float:left; margin-left:20px; float:left">
+                            <div>
+                                <div style="float:left; font-size:13px; width:30px;margin-top:20px; text-transform:capitalize">
+                                    Zip
+                                </div>
+                                
+                                <div style="float:left; width:80px; margin-left:6px">
+                                    <input type="text" class="" name="" id="zipID" placeholder ="Zip Code"  />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <br/>
+                        <div id="homeAddressButtonID" align="center" style="float:left; width:240px">
+                            <a href="javascript:updateHomeAddress(document.getElementById('houseID').value,document.getElementById('cityID').value,document.getElementById('zipID').value,document.getElementById('stateID').value)" data-role="button" data-theme="b" style="text-transform:capitalize">Request Address Change</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--!HOME ADDRESS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','homeAddressPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!HOME ADDRESS Page------------->
+        
+        <!--####################################WORK ADDRESS PAGE#####################################-->
+        
+        <!----WORK ADDRESS Page---------->
+        <div id="workAddressPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backWorkAddressID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Work Address</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--WORK ADDRESS Screen-->
+                <div id="workAddressWindowID" class="window">
+                    
+                    <div id="workAddressID" class="">
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Address
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="workHouseID" placeholder ="Address"  />
+                            </div>
+                        </div>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                City
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="workCityID" placeholder ="City"  />
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        <br />
+                        <div id="workAddressStateID" style="width:100px; float:left; margin-left:10px">
+                            <div>
+                                <div style="float:left; font-size:13px; width:30px;margin-top:20px; text-transform:capitalize">
+                                    State
+                                </div>
+                                
+                                <div style="float:left; width:60px; margin-left:6px">
+                                    <input type="text" class="" name="" id="workStateID" placeholder ="State"  />
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div id="workAddressZipID" align="center" style="width:120px; float:left; margin-left:20px; float:left">
+                            <div>
+                                <div style="float:left; font-size:13px; width:30px;margin-top:20px; text-transform:capitalize">
+                                    Zip
+                                </div>
+                                
+                                <div style="float:left; width:80px; margin-left:6px">
+                                    <input type="text" class="" name="" id="workZipID" placeholder ="Zip Code"  />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <br/>
+                        <div id="workAddressButtonID" style="float:left; width:240px">
+                            <a href="javascript:updateWorkAddress(document.getElementById('workHouseID').value,document.getElementById('workCityID').value,document.getElementById('workZipID').value,document.getElementById('workStateID').value)" data-role="button" data-theme="b" style="text-transform:capitalize">Request Address Change</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!--!WORK ADDRESS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','workAddressPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!WORK ADDRESS Page------------->
+        
+        <!--####################################TOLL SETUP PAGE#####################################-->
+        
+        <!----TOLL SETUP Page---------->
+        <div id="tollSetupPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backTollSetupID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <a id="addTollButtonID" href="#" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">Save</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Toll Setup</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--TOLL SETUP Screen-->
+                <div id="tollSetupWindowID" class="window">
+                    
+                    <div id="tollSetupID" class="">
+                        
+                        <div id="tollSetupStateID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="workStateID" style="font-size:12px">Toll Agencies</span></h3>
+                            <ul data-role="listview" id="workStateListID" style="font-size:10px">
+                                
+                            </ul>
+                            
+                        </div>
+                        
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Account No.
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="tollSetupAccountNoID" placeholder ="Account No."  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Account Name
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="tollSetupNameID" placeholder ="Name of Account"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Password
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="password" class="" name="" id="tollSetupPwdID" placeholder ="Password"  />
+                            </div>
+                        </div>
+                        
+                        <br />
+                    </div>
+                </div>
+                <!--!TOLL SETUP Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','tollSetupPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!TOLL SETUP Page------------->
+        
+        <!--####################################TRIP STORAGE PAGE#####################################-->
+        
+        <!----TRIP STORAGE Page---------->
+        <div id="tripStoragePage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backTripStorageID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <a id="addTollButtonID" href="#" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">Save</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Trip Storage</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--TRIP STORAGE Screen-->
+                <div id="tripStorageWindowID" class="window">
+                    
+                    <div id="tripStorageID" class="">
+                        
+                        <span style="color:black; text-transform:capitalize; font-size:14px">Automatically remove trip information older than</span>
+                        <br/>
+                        <div id="tripStorageValDurationID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="tripStorageDurationID" style="font-size:12px">8 days</span></h3>
+                            <ul data-role="listview" id="workStateListID" style="font-size:13px">
+                                <li><a href="javascript:setTripStorageDuration('2')" style="font-size:12px">2 days</a></li>
+                                <li><a href="javascript:setTripStorageDuration('3')" style="font-size:12px">3 days</a></li>
+                                <li><a href="javascript:setTripStorageDuration('5')" style="font-size:12px">5 days</a></li>
+                                <li><a href="javascript:setTripStorageDuration('8')" style="font-size:12px">8 days</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--!TRIP STORAGE Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','tripStoragePage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!TRIP STORAGE Page------------->
+        
+        <!--###################################DAILY COMMUTES PAGE####################################-->
+        
+        <!----DAILY COMMUTES Page---------->
+        <div id="dailyCommutesPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backDailyCommutesButtonID" href="javascript:backChangePwdAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Daily Commutes</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--DAILY COMMUTES Screen-->
+                <div id="dailyCommutesWindowID" class="">
+                    
+                    <div id="dailyCommutesID" class="tollTable" align="center">
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Distance
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="number" class="" name="" id="dailyCommutesDistanceID" placeholder ="Distance"  />
+                            </div>
+                        </div>
+                        <div style="clear:both">
+                        </div>
+                        <br/>
+                        <a id="editMyTripSaveButtonID" href="javascript:chkDistanceNumeric()" data-role="button" data-theme="b" class="loginTxt" style="text-transform:capitalize">Save</a>
+                        
+                    </div>
+                </div>
+                <!--!DAILY COMMUTES Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Settings','dailyCommutesPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!DAILY COMMUTES Page------------->
+        
+        <!--#######################################TOLLS PAGE########################################-->
+        
+        <!----Tolls Page---------->
+        <div id="tollsPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backTollButtonID" href="javascript:backTollAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <a id="addTollButtonID" href="javascript:loadAddTolls()" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">+</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Tolls</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--Tolls Screen-->
+                <div id="tollsWindowID" class="">
+                    <div id="tollsID" class="tollTable">
+                        <ul data-role="listview" data-theme="d" data-divider-theme="d" class="ui-listview">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!--!Tolls Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Tolls','tollsPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!Tolls Page------------->
+        
+        <!--#######################################ADD TOLLS PAGE########################################-->
+        
+        <!----ADD TOLLS Page---------->
+        <div id="addTollsPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backTollButtonID" href="javascript:backAddTollAction()" data-role="button" data-theme="b" style="margin:2px 0px 4px 6px;text-transform:capitalize">Back</a>
+                <a id="saveTollButtonID" href="javascript:saveTollAction(document.getElementById('tollNameID').value,document.getElementById('tollCostID').value, document.getElementById('tollDateID').value,document.getElementById('tollLocationID').value)" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">Save</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Add Toll</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--ADD TOLLS Screen-->
+                <div id="addTollsWindowID" class="window">
+                    
+                    <div id="addTollsID" class="">
+                        <br/>
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Toll Plaza
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="tollNameID" placeholder ="Toll Plaza"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Cost
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="isNumericFormat" name="" id="tollCostID" placeholder ="Cost"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Date
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="isDateFormat" id="tollDateID" placeholder ="Enter Date"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Location
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="isDateFormat" id="tollLocationID" placeholder ="Enter Location"  />
+                            </div>
+                        </div>
+                        <div style="clear:both">
+                        </div>
+                        <br />
+                        <div id="addTollLocationsID" data-role="collapsible" content-scroll="true">
+                            <h3><span id="frequentTollLocationID" style="font-size:10px">Frequently used Toll Locations</span></h3>
+                            <ul data-role="listview" id="frequentTollListID" style="font-size:10px">
+                                
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--!ADD TOLLS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Tolls','addTollsPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!ADD TOLLS Page------------->
+        
+        <!--#######################################NOTES PAGE########################################-->
+        
+        <!----NOTES Page---------->
+        <div id="notesPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backNotesButtonID" href="javascript:backTollAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <a id="addNotesButtonID" href="javascript:loadAddNotes()" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">+</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Notes</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--NOTES Screen-->
+                <div id="notesWindowID" class="">
+                    <div id="notesID" class="tollTable">
+                        <ul data-role="listview" data-theme="d" data-divider-theme="d" class="ui-listview">
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!--!NOTES Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Notes','notesPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!NOTES Page------------->
+        
+        <!--#######################################ADD NOTES PAGE########################################-->
+        
+        <!----ADD NOTES Page---------->
+        <div id="addNotesPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backNoteButtonID" href="javascript:backAddNotesAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <a id="saveTollButtonID" href="javascript:saveNoteAction(document.getElementById('noteCustomerNameID').value,document.getElementById('noteSubjectID').value, document.getElementById('noteCustomID').value)" data-role="button" data-theme="b" style="margin:2px 0px 6px 230px;text-transform:capitalize">Save</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Add Note</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--ADD NOTES Screen-->
+                <div id="addNtesWindowID" class="window">
+                    <div id="addNotesID" class="">
+                        <br/>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Name
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="noteCustomerNameID" placeholder ="Customer Name"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Subject
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="noteSubjectID" placeholder ="Subject"  />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="float:left; font-size:13px; width:90px;margin-top:20px; text-transform:capitalize">
+                                Notes
+                            </div>
+                            
+                            <div style="float:left; width:150px; margin-left:6px">
+                                <input type="text" class="" name="" id="noteCustomID" placeholder ="Customer Notes" style="height:160px" />
+                            </div>
+                        </div>
+                        
+                        <br />
+                    </div>
+                </div>
+                <!--!ADD NOTES Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Add Notes','addNotesPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!ADD NOTES Page------------->
+        
+        <!--#######################################MY TRIPS PAGE########################################-->
+        
+        <!----MY TRIPS Page---------->
+        <div id="myTripLogsPage" data-role="page" class="pages" width="100%" data-scroll="true">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backMyTripsButtonID" href="javascript:backEndTripAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">My Trips</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--MY TRIPS Screen-->
+                <div id="myTripsWindowID" class="">
+                    <div id="myTripsID" class="tollTable">
+                        <ul data-role="listview" data-theme="d" data-divider-theme="d" class="ui-listview">
+                            
+                        </ul>
+                    </div>
+                </div>                
+                <!--!MY TRIPS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Trip Logs','myTripLogsPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!MY TRIPS Page------------->
+        
+        <!--###################################EDIT MY TRIPS PAGE####################################-->
+        
+        <!----EDIT MY TRIPS Page---------->
+        <div id="editMyTripLogsPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backEditMyTripsButtonID" href="javascript:backEditMyTripAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Edit Trip</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--EDIT MY TRIPS Screen-->
+                <div id="editMyTripsWindowID" class="">
+                    <div id="editMyTripsID" class="tollTable" align="center">
+                        <input type="text" class="" name="" id="editMyTripStartLocNameID" placeholder ="Start Location"  /> 
+                        <input type="text" class="" name="" id="editMyTripDestinationNameID" placeholder ="Destination"  /> 
+                        <a id="editMyTripSaveButtonID" href="javascript:editMyTripSave(document.getElementById('editMyTripStartLocNameID').value,document.getElementById('editMyTripDestinationNameID').value)" data-role="button" data-theme="b" class="loginTxt" style="text-transform:capitalize">Save</a>
+                        
+                    </div>
+                </div>
+                <!--!EDIT MY TRIPS Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+                <div id="footerID" class="footerRight">
+                    <a id="feedbackButtonID" href="javascript:loadFeedback('Trip Logs','editMyTripLogsPage')" data-role="button" data-theme="b" style="text-transform:capitalize">Feedback</a>
+                </div>
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!EDIT MY TRIPS Page------------->
+        
+        <!--###################################FEEDBACK PAGE####################################-->
+        
+        <!----FEEDBACK Page---------->
+        <div id="feedbackPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backEditMyTripsButtonID" href="javascript:backFeedback()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Feedback</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--FEEDBACK Screen-->
+                <div id="editMyTripsWindowID" class="">
+                    
+                    <div id="feedbackID" class="tollTable" align="center">
+                        
+                        <textarea rows="4" cols="50" class="" id="feedbackDescID" placeholder ="Description"> </textarea>
+                        
+                        <div id="feedbackFeatureID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="feedbackFeatureTitleID" style="font-size:12px">General</span></h3>
+                            <ul data-role="listview" id="feedbackFeatureListID" style="font-size:13px">
+                                <li><a href="javascript:setFeedbackFeature('General')" style="font-size:12px">General</a></li>
+                                <li><a href="javascript:setFeedbackFeature('Bug')" style="font-size:12px">Bug</a></li>
+                            </ul>
+                            
+                        </div>
+                        
+                        <div id="feedbackTypeID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="feedbackTypeTitleID" style="font-size:12px">Screen</span></h3>
+                            <ul data-role="listview" id="feedbackTypeListID" style="font-size:13px">
+                                <li><a href="javascript:setFeedbackType('Start/End Trip')" style="font-size:12px">Start/End Trip</a></li>
+                                <li><a href="javascript:setFeedbackType('Confirm Trip')" style="font-size:12px">Confirm Trip</a></li>
+                                <li><a href="javascript:setFeedbackType('Login')" style="font-size:12px">Login</a></li>
+                                <li><a href="javascript:setFeedbackType('Trip Logs')" style="font-size:12px">Trip Logs</a></li>
+                                <li><a href="javascript:setFeedbackType('Tolls')" style="font-size:12px">Tolls</a></li>
+                                <li><a href="javascript:setFeedbackType('Notes')" style="font-size:12px">Notes</a></li>
+                                <li><a href="javascript:setFeedbackType('Settings')" style="font-size:12px">Settings</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                        
+                        <a id="editMyTripSaveButtonID" href="javascript:sendFeedbackToServer(document.getElementById('feedbackDescID').value,document.getElementById('feedbackFeatureTitleID').innerHTML,document.getElementById('feedbackTypeTitleID').innerHTML)" data-role="button" data-theme="b" class="loginTxt" style="text-transform:capitalize">Send</a>
+                        
+                    </div>
+                </div>
+                <!--!FEEDBACK Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!FEEDBACK Page------------->
+        
+        <!--###################################ADD CLIENT PAGE####################################-->
+        
+        <!----ADD CLIENT Page---------->
+        <div id="addClientPage" data-role="page" class="pages" width="100%">
+            <!----Header---------->
+            <div data-role="header" align="center" style = "background-repeat:no repeat; background-image: url(res/login/navBar.png)">
+                <a id="backAddClientButtonID" href="javascript:backTollAction()" data-role="button" data-theme="b" style="margin:2px 0px 6px 5px;text-transform:capitalize">Back</a>
+                <div id="customHomeNavBarID" class="customNavBar" style="position:relative; top:8px !important">
+                    <span style="font-size:15px">Add Client</span>
+                </div>
+            </div>
+            <!--!Header----------->
+            
+            <!----Content---------->
+            <div data-role="content" style="">
+                <!--ADD CLIENT Screen-->
+                <div id="addClientWindowID" class="">
+                    
+                    <div id="addClientID" class="tollTable" align="center">
+                        
+                        <input type="text" class="" name="" style="height:160px" id="addClientDescID" placeholder ="Client"  />
+                        
+                        <div id="addClientListID" data-role="collapsible" style="text-transform:capitalize">
+                            <h3><span id="addClientListTitleID" style="font-size:12px">Choose..</span></h3>
+                            <ul data-role="listview" id="addClientListItemsID" style="font-size:13px">
+
+                            </ul>
+                        </div>
+                        
+                        <a id="addClientSaveButtonID" href="javascript:saveClientInfo(document.getElementById('addClientDescID').value)" data-role="button" data-theme="b" class="loginTxt" style="text-transform:capitalize">Save</a>
+                        
+                    </div>
+                </div>
+                <!--!ADD CLIENT Screen-->
+            </div>
+            <!--!Content----------->
+            
+            <!----Footer---------->
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="b" class="footers">
+            </div>
+            <!----!Footer--------->
+        </div>
+        <!--!ADD CLIENT Page------------->
+
+        
+    </body>
+</html>

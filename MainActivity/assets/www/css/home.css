@@ -1,0 +1,29 @@
+
+.startButton{
+    width:240px;
+    height:90px;
+    text-transform:capitalize;
+}
+
+.cancelButton{
+    width:240px;
+    height:40px;
+    text-transform:capitalize;
+}
+
+.endTrip{
+    
+
+}
+
+.confirmButton{
+    width:240px;
+    height:50px;
+
+}
+
+.personalTripButton{
+    width:240px;
+    height:30px;
+    
+}
